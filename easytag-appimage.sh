@@ -23,7 +23,7 @@ cp -v /usr/share/icons/hicolor/256x256/apps/easytag.png  ./.DirIcon
 # ADD LIBRARIES
 wget --retry-connrefused --tries=30 "$SHARUN" -O ./sharun-aio
 chmod +x ./sharun-aio
-xvfb-run -a ./sharun-aio l -p -v -e -s -k           \
+xvfb-run -a ./sharun-aio l -p -v -e -s -k       \
 	/usr/bin/easytag                            \
 	"$SYSLIBS"/libvorbis*                       \
 	"$SYSLIBS"/libvogg*                         \
@@ -33,6 +33,7 @@ xvfb-run -a ./sharun-aio l -p -v -e -s -k           \
 	"$SYSLIBS"/libwavpack*                      \
 	"$SYSLIBS"/libid3tag.so*                    \
 	"$SYSLIBS"/libXss.so*                       \
+	"$SYSLIBS"/gconv/*                          \
 	"$SYSLIBS"/gdk-pixbuf-*/*/loaders/*         \
 	"$SYSLIBS"/gio/modules/libdconfsettings.so  \
 	"$SYSLIBS"/pulseaudio/*
