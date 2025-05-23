@@ -37,6 +37,7 @@ xvfb-run -a ./sharun-aio l -p -v -e -s -k           \
 	"$SYSLIBS"/gio/modules/libdconfsettings.so  \
 	"$SYSLIBS"/pulseaudio/*
 rm -f ./sharun-aio
+ln ./sharun ./AppRun
 ./sharun -g
 
 # MAKE APPIAMGE WITH URUNTIME
