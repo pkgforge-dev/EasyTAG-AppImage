@@ -40,6 +40,9 @@ wget --retry-connrefused --tries=30 "$OPUS_URL"   -O  ./opus.pkg.tar.zst
 pacman -U --noconfirm ./*.pkg.tar.zst
 rm -f ./*.pkg.tar.zst
 
+# for some reason this app ends up opening mesa, but doesn't really need it?
+# why would a gtk3 app that edit audio files need mesa???
+pacman -Rsndd --noconfirm mesa
 
 echo "All done!"
 echo "---------------------------------------------------------------"
