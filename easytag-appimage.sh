@@ -2,47 +2,28 @@
 
 set -eux
 
-export ARCH="$(uname -m)"
+ARCH="$(uname -m)"
 URUNTIME="https://github.com/VHSgunzo/uruntime/releases/latest/download/uruntime-appimage-dwarfs-$ARCH"
 URUNTIME_LITE="https://github.com/VHSgunzo/uruntime/releases/latest/download/uruntime-appimage-dwarfs-lite-$ARCH"
 UPINFO="gh-releases-zsync|$(echo $GITHUB_REPOSITORY | tr '/' '|')|latest|*$ARCH.AppImage.zsync"
-SHARUN="https://github.com/VHSgunzo/sharun/releases/latest/download/sharun-$ARCH-aio"
-SYSLIBS="/usr/lib"
+SHARUN="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/quick-sharun.sh"
 
 VERSION=$(pacman -Q easytag | awk 'NR==1 {print $2; exit}')
-echo "$VERSION" > ~/version
+[ -n "$VERSION" ] && echo "$VERSION" > ~/version
 
 # Prepare AppDir
 mkdir -p ./AppDir
-cd ./AppDir
-
-cp -v /usr/share/applications/easytag.desktop            ./
-cp -v /usr/share/icons/hicolor/256x256/apps/easytag.png  ./
-cp -v /usr/share/icons/hicolor/256x256/apps/easytag.png  ./.DirIcon
+cp -v /usr/share/applications/easytag.desktop            ./AppDir
+cp -v /usr/share/icons/hicolor/256x256/apps/easytag.png  ./AppDir
+cp -v /usr/share/icons/hicolor/256x256/apps/easytag.png  ./AppDir/.DirIcon
 
 # ADD LIBRARIES
-wget --retry-connrefused --tries=30 "$SHARUN" -O ./sharun-aio
-chmod +x ./sharun-aio
-xvfb-run -a ./sharun-aio l -p -v -e -s -k       \
-	/usr/bin/easytag                            \
-	"$SYSLIBS"/libvorbis*                       \
-	"$SYSLIBS"/libvogg*                         \
-	"$SYSLIBS"/libopus*                         \
-	"$SYSLIBS"/libwavpack*                      \
-	"$SYSLIBS"/libFLAC*                         \
-	"$SYSLIBS"/libwavpack*                      \
-	"$SYSLIBS"/libid3tag.so*                    \
-	"$SYSLIBS"/libXss.so*                       \
-	"$SYSLIBS"/gconv/*                          \
-	"$SYSLIBS"/gdk-pixbuf-*/*/loaders/*         \
-	"$SYSLIBS"/gio/modules/libdconfsettings.so  \
-	"$SYSLIBS"/pulseaudio/*
-rm -f ./sharun-aio
-ln ./sharun ./AppRun
-./sharun -g
+wget --retry-connrefused --tries=30 "$SHARUN" -O ./quick-sharun
+chmod +x ./quick-sharun
+./quick-sharun /usr/bin/easytag
+ln ./AppDir/sharun ./AppDir/AppRun
 
 # MAKE APPIAMGE WITH URUNTIME
-cd ..
 wget --retry-connrefused --tries=30 "$URUNTIME"      -O  ./uruntime
 wget --retry-connrefused --tries=30 "$URUNTIME_LITE" -O  ./uruntime-lite
 chmod +x ./uruntime*
