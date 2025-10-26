@@ -14,6 +14,7 @@ export OUTNAME=EasyTAG-"$VERSION"-anylinux-"$ARCH".AppImage
 export UPINFO="gh-releases-zsync|${GITHUB_REPOSITORY%/*}|${GITHUB_REPOSITORY#*/}|latest|*$ARCH.AppImage.zsync"
 export DESKTOP=/usr/share/applications/easytag.desktop
 export ICON=/usr/share/icons/hicolor/256x256/apps/easytag.png
+export OPTIMIZE_LAUNCH=1
 
 # Deploy dependencies
 wget --retry-connrefused --tries=30 "$SHARUN" -O ./quick-sharun
