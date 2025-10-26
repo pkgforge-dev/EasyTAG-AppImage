@@ -22,7 +22,7 @@ jobs:
             arch: aarch64
     container:
       image: ghcr.io/pkgforge-dev/archlinux:latest
-      options: --privileged --device /dev/fuse:/dev/fuse --cap-add SYS_ADMIN
+      options: --privileged --device /dev/fuse
     steps:
     - uses: actions/checkout@v4
 
