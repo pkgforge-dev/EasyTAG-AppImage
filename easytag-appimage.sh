@@ -11,6 +11,7 @@ export UPINFO="gh-releases-zsync|${GITHUB_REPOSITORY%/*}|${GITHUB_REPOSITORY#*/}
 export APPNAME=EasyTAG
 export DESKTOP=/usr/share/applications/easytag.desktop
 export ICON=/usr/share/icons/hicolor/256x256/apps/easytag.png
+export ALWAYS_SOFTWARE=1
 
 # Deploy dependencies
 quick-sharun /usr/bin/easytag
